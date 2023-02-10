@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { Row, Col, Card, Accordion, ListGroup } from "react-bootstrap"
+import NewsSentiment from "./NewsSentiment";
 
 const NewsDisplay = (url) => {
     const [newsExtracted, setNewsExtracted] = useState([]);
-    const [sentimentAnalysis, setSentimentAnalysis] = useState([]);
 
     useEffect(() => {
         if (!url.length > 0) {
@@ -27,35 +27,12 @@ const NewsDisplay = (url) => {
                 if (!response.ok) {throw response} 
                 return response.json();
             })
-            .then(async (incomingData) => {
+            .then((incomingData) => {
                 setNewsExtracted(incomingData.article.summary.replace(/(\r\n|\n|\r)/gm, " "));
-
-                if (newsExtracted) { 
-                    //sentiment analysis
-                    const optionsSentiment = {
-                        method: 'POST',
-                        headers: {
-                            'content-type': 'application/json',
-                            'X-RapidAPI-Key': process.env.REACT_APP_TEXT_ANALYSIS_API_KEY,
-                            'X-RapidAPI-Host': 'text-analysis12.p.rapidapi.com'
-                        },
-                        body: '{"language":"english","text":"'+newsExtracted+'"}'
-                    };
-
-                    await fetch('https://text-analysis12.p.rapidapi.com/sentiment-analysis/api/v1.1', optionsSentiment)
-                    .then((response) => {
-                        if (!response.ok) {throw response} 
-                        return response.json();
-                    })
-                    .then((incomingData) => {
-                        setSentimentAnalysis(incomingData);
-                    }) 
-                    .catch((err) => console.error(err))  
-                }
             })
             .catch((err) => console.error(err));
         }
-    },[newsExtracted, sentimentAnalysis, url.length, url.url.url]);
+    },[newsExtracted, url.length, url.url.url]);
 
     return (
         <Row className="m-3">
@@ -75,27 +52,24 @@ const NewsDisplay = (url) => {
                                             src={url.url.multimedia[0].url}
                                         />
                                         <Card.Body>
-                                            <h6 className="text-center">Summary:</h6>
                                             <div style={{ textAlign: 'justify' }}>
                                                 {newsExtracted.length > 0
-                                                ? newsExtracted
-                                                : <p className="text-center">Loading summary...</p>}
+                                                ?   <>
+                                                        <h6 className="text-center">Summary:</h6>
+                                                        {newsExtracted}
+                                                    </>
+
+                                                :   <p className="text-center">Loading Content ...</p>}
                                             </div>
                                         </Card.Body>
+                                        {newsExtracted >= 0
+                                        ?   ""
 
-                                        <Card.Footer className="text-center">
-                                        {sentimentAnalysis.length >= 0
-                                            ?   <>
-                                                    <h6 className="text-center">Sentiment analysis:</h6>
-                                                    <p>Loading analysis...</p>
-                                                </>
-                                            :   <>
-                                                    <h6 className="text-center">Sentiment analysis:</h6>
-                                                    <p>{sentimentAnalysis.sentiment}</p>
-                                                </>
+                                        :   <Card.Footer className="text-center">
+                                                <NewsSentiment summary={newsExtracted}/>
+                                            </Card.Footer> 
                                         }
-                                        </Card.Footer> 
- 
+                                        
                                     </ListGroup>
                                 </Card.Body>
                             </Card>
