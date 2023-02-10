@@ -23,24 +23,28 @@ const NewsDisplay = (url) => {
             };
 
             fetch('https://text-analysis12.p.rapidapi.com/article-extraction/api/v1.3', optionsExtract)
-            .then((response) => {
+            .then(async (response) => {
                 if (!response.ok) {throw response} 
-                return response.json();
+                return await response.json();
             })
             .then((incomingData) => {
-                setNewsExtracted(incomingData.article.summary.replace(/(\r\n|\n|\r)/gm, " "));
+                setNewsExtracted(incomingData.article);
             })
             .catch((err) => console.error(err));
         }
-    },[newsExtracted, url.length, url.url.url]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
     return (
         <Row className="m-3">
             <Col>
                 <Accordion flush>
                     <Accordion.Item eventKey={url.url.title}>
-                        <Accordion.Header>
-                            <h5>{url.url.title} <p>{url.url.published_date.split("T")[0]} - {url.url.published_date.split("T")[1].split("-")[0]}</p></h5>
+                        <Accordion.Header>                        
+                            <span>
+                                <h5>{url.url.title}</h5>
+                                <p>News date: {url.url.published_date.split("T")[0]} - {url.url.published_date.split("T")[1].split("-")[0]}</p>
+                            </span> 
                         </Accordion.Header>
                         <Accordion.Body>
                             <Card>
@@ -53,23 +57,26 @@ const NewsDisplay = (url) => {
                                         />
                                         <Card.Body>
                                             <div style={{ textAlign: 'justify' }}>
-                                                {newsExtracted.length > 0
+
+                                                {/* News summary output */}
+                                                {newsExtracted.summary
                                                 ?   <>
                                                         <h6 className="text-center">Summary:</h6>
-                                                        {newsExtracted}
+                                                        {newsExtracted.summary}
                                                     </>
 
                                                 :   <p className="text-center">Loading Content ...</p>}
                                             </div>
                                         </Card.Body>
+
+                                        {/* Sentiment analysis output */}
                                         {newsExtracted >= 0
                                         ?   ""
 
                                         :   <Card.Footer className="text-center">
-                                                <NewsSentiment summary={newsExtracted}/>
+                                                <NewsSentiment text={newsExtracted.text.replace(/(\r\n|\n|\r)/gm, " ")}/>
                                             </Card.Footer> 
                                         }
-                                        
                                     </ListGroup>
                                 </Card.Body>
                             </Card>
