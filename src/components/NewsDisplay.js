@@ -50,11 +50,15 @@ const NewsDisplay = (url) => {
                             <Card>
                                 <Card.Body>
                                     <ListGroup className="list-group-flush">
-                                        <Card.Img 
-                                            style={{ width: "50vw" }} 
-                                            className="mx-auto" 
-                                            src={url.url.multimedia[0].url}
-                                        />
+                                        {url.url.multimedia
+                                        ?   <Card.Img 
+                                                style={{ width: "50vw" }} 
+                                                className="mx-auto" 
+                                                src={url.url.multimedia[0].url}
+                                            />
+
+                                        :   ""
+                                        }
                                         <Card.Body>
                                             <div style={{ textAlign: 'justify' }}>
 
