@@ -2,12 +2,12 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Container } from 'react-bootstrap';
-import NewsFetch from './components/NewsFetch';
+import GetUserInput from './components/GetUserInput';
 
 function App() {
   return (
     <Container fluid>
-      <NewsFetch/>
+      <GetUserInput/>
     </Container>
   );
 }
