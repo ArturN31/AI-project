@@ -6,15 +6,19 @@ const InputForm = ({ get_input }) => {
     const textAreaRef = useRef(null);
 
     //setting the input for the get function in the parent component
-    const send_input_to_parent = () => get_input(input)
+    const send_input_to_parent = () => get_input(input.replace(/["']/g, ""));
 
     //resizing the textarea to fit content
-    const resizeTextArea = () => {
+    const resize_text_area = () => {
         textAreaRef.current.style.height = "auto";
         textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px";
     };
 
-    useEffect(resizeTextArea, [input]);
+    const text_area_reset = () => {
+        document.getElementById('textarea').value="";
+    }
+
+    useEffect(resize_text_area);
 
     return (
         <>
@@ -25,8 +29,11 @@ const InputForm = ({ get_input }) => {
                 </Form.Group>
             </Form>
             <div className="d-flex justify-content-center">
-                <Button variant="primary" type="submit" onClick={send_input_to_parent}>
-                    Submit
+                <Button className="mx-2" variant="primary" onClick={send_input_to_parent}>
+                    Analyse
+                </Button>
+                <Button className="mx-2" variant="primary" onClick={text_area_reset}>
+                    Reset
                 </Button>
             </div>
         </>

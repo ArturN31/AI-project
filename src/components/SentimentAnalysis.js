@@ -3,18 +3,18 @@ import React, { useState, useEffect } from "react"
 const GetUserInput = ({ analysed_text }) => {
     const [sentimentAnalysis, setSentimentAnalysis] = useState([]);
 
-    const options = {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json',
-            'X-RapidAPI-Key': process.env.REACT_APP_TEXTPROBE_API_KEY,
-            'X-RapidAPI-Host': 'textprobe.p.rapidapi.com'
-        },
-        body: '{"text":"' + analysed_text + '"}'
-    };
-
     useEffect(() => {
-        if(analysed_text !== "") {
+        const options = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'X-RapidAPI-Key': process.env.REACT_APP_TEXTPROBE_API_KEY,
+                'X-RapidAPI-Host': 'textprobe.p.rapidapi.com'
+            },
+            body: '{"text":"' + analysed_text + '"}'
+        };
+
+        if(analysed_text !== "") { 
             fetch('https://textprobe.p.rapidapi.com/feelings', options)
              .then((response) => {
                 if (!response.ok) {throw response} 
@@ -25,11 +25,16 @@ const GetUserInput = ({ analysed_text }) => {
             }) 
             .catch((err) => console.error(err)) 
         }
-    })
+    }, [analysed_text])
 
     return (
-        sentimentAnalysis.length >= 0
-        ?   <h5>Sentiment analysis available upon submitting text</h5>
+        sentimentAnalysis.length <= 0
+        ?   <>
+                {analysed_text.length <= 0
+                    ? ""
+                    : "Loading analysis..."
+                }
+            </>
         :   <>
                 <h5>Sentiment analysis:</h5>
                 {sentimentAnalysis.emotion_prediction
@@ -50,6 +55,10 @@ const GetUserInput = ({ analysed_text }) => {
                 }
                 {sentimentAnalysis.emotion_scores.Neutral
                     ? <p>Neutral: <span> {sentimentAnalysis.emotion_scores.Neutral}</span></p>
+                    : "Loading analysis..."
+                }
+                {sentimentAnalysis.emotion_scores.Sadness
+                    ? <p>Sadness: <span> {sentimentAnalysis.emotion_scores.Sadness}</span></p>
                     : "Loading analysis..."
                 }
                 {sentimentAnalysis.sentiment_scores.Negative
