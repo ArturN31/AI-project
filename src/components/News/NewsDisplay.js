@@ -7,6 +7,7 @@ const NewsDisplay = (url) => {
 
     useEffect(() => {
         if (!url.length > 0) {
+            
             //extracts content from NY Times News
             const encodedParamsExtract = new URLSearchParams();
             encodedParamsExtract.append("language", "english");
