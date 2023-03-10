@@ -26,11 +26,19 @@ const Navigation = () => {
                         </Nav.Item>
                         <Nav.Item>
                             {/* Conditional class setting - sets active element */}
-                            <NavLink to="/NewsAnalysis" className = {(navData) => (
+                            <NavLink to="/NewsAnalysisTheme" className = {(navData) => (
                                 navData.isActive 
                                 ? "nav-link active-link" 
                                 : 'nav-link'
-                            )}>News Analysis</NavLink>
+                            )}>News Analysis by Theme</NavLink>
+                        </Nav.Item>
+                        <Nav.Item>
+                            {/* Conditional class setting - sets active element */}
+                            <NavLink to="/NewsAnalysisDate" className = {(navData) => (
+                                navData.isActive 
+                                ? "nav-link active-link" 
+                                : 'nav-link'
+                            )}>News Analysis by Date</NavLink>
                         </Nav.Item>
                         <Nav.Item>
                             {/* Conditional class setting - sets active element */}
