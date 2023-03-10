@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react"
 import { Row, Col, Card, Accordion, ListGroup } from "react-bootstrap"
 import NewsSentiment from "./NewsSentiment";
 
-const NewsDisplay = (url) => {
+const NewsDisplay = (news) => {
     const [newsExtracted, setNewsExtracted] = useState([]);
 
     useEffect(() => {
-        if (!url.length > 0) {
+        if (!news.length > 0) {
             
             //extracts content from NY Times News
             const encodedParamsExtract = new URLSearchParams();
             encodedParamsExtract.append("language", "english");
-            encodedParamsExtract.append("url", url.url.url);
+            encodedParamsExtract.append("url", news.news.web_url);
 
             const optionsExtract = {
                 method: 'POST',
@@ -34,32 +34,33 @@ const NewsDisplay = (url) => {
             .catch((err) => console.error(err));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
+    },[news]);
 
     return (
         <Row className="m-3">
             <Col>
                 <Accordion flush>
-                    <Accordion.Item eventKey={url.url.title}>
+                    <Accordion.Item eventKey={news.news.headline.print_headline}>
                         <Accordion.Header>                        
                             <span>
-                                <h5>{url.url.title}</h5>
-                                <p>News date: {url.url.published_date.split("T")[0]} - {url.url.published_date.split("T")[1].split("-")[0]}</p>
+                                <h5>{news.news.headline.print_headline}</h5>
+                                <p>News date: {news.news.pub_date.split("T")[0]} - {news.news.pub_date.split("T")[1].split("-")[0]}</p>
                             </span> 
                         </Accordion.Header>
                         <Accordion.Body>
                             <Card>
                                 <Card.Body>
                                     <ListGroup className="list-group-flush">
-                                        {url.url.multimedia
+                                        {/* TRY TO FIX IMAGE DISPLAY - NEWS DO NOT PROVIDE EXACT URL  */}
+                                        {/* {news.news.multimedia
                                         ?   <Card.Img 
                                                 style={{ width: "50vw" }} 
                                                 className="mx-auto" 
-                                                src={url.url.multimedia[0].url}
+                                                src={news.news.multimedia[0].url}
                                             />
 
                                         :   ""
-                                        }
+                                        } */}
                                         <Card.Body>
                                             <div style={{ textAlign: 'justify' }}>
 

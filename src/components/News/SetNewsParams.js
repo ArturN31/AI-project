@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, DropdownButton, Dropdown } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
 import Calendar from "react-calendar";
 
@@ -44,7 +44,7 @@ export function SetNewsParams({ onSubmit }) {
           <Calendar onChange={onChange} value={date} maxDetail={"year"} minDate={new Date("01-01-1852")}
           maxDate={new Date("01-01-2024")}/>
             
-            {console.log(date)}
+
             {date.toDateString()}
         </Form.Group>
         
@@ -59,10 +59,7 @@ export function SetNewsParams({ onSubmit }) {
           Sort-By Params Above
         </Button>
       </Form>
-
-
     </div>
-   
   );
 }
 
