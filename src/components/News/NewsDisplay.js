@@ -43,7 +43,14 @@ const NewsDisplay = (news) => {
                     <Accordion.Item eventKey={news.news.headline.print_headline}>
                         <Accordion.Header>                        
                             <span>
-                                <h5>{news.news.headline.print_headline}</h5>
+                                {news.news.headline.print_headline && news.news.headline.main
+                                    ?   <h5>{news.news.headline.print_headline}</h5>
+                                    :   ""
+                                }
+                                {!news.news.headline.print_headline && news.news.headline.main
+                                    ?   <h5>{news.news.headline.main}</h5>
+                                    :   ""
+                                }
                                 <p>News date: {news.news.pub_date.split("T")[0]} - {news.news.pub_date.split("T")[1].split("-")[0]}</p>
                             </span> 
                         </Accordion.Header>
@@ -51,16 +58,14 @@ const NewsDisplay = (news) => {
                             <Card>
                                 <Card.Body>
                                     <ListGroup className="list-group-flush">
-                                        {/* TRY TO FIX IMAGE DISPLAY - NEWS DO NOT PROVIDE EXACT URL  */}
-                                        {/* {news.news.multimedia
+                                        {news.news.multimedia[0]
                                         ?   <Card.Img 
                                                 style={{ width: "50vw" }} 
                                                 className="mx-auto" 
-                                                src={news.news.multimedia[0].url}
+                                                src={"https://www.nytimes.com/" + news.news.multimedia[0].url}
                                             />
-
                                         :   ""
-                                        } */}
+                                        }
                                         <Card.Body>
                                             <div style={{ textAlign: 'justify' }}>
 
