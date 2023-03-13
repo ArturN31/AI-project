@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
+import NewsFetch from "./NewsFetch";
 import Calendar from "react-calendar";
 
 // used to update the state of the params. Uses onSubmit
-export function SetNewsParams({ onSubmit }) {
+function SetNewsParams() {
   const [params, setParams] = useState({
     year: 2023,
     month: 1,
@@ -30,68 +31,46 @@ export function SetNewsParams({ onSubmit }) {
   }
 
   // used to handle form submission (params are updated)
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onSubmit({ ...params });
-  };
 
+    const url = 'http://localhost:3001/news';
+    const options = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(params)
+    };
+    await fetch(url, options).catch(error => console.error(error));
+    window.location.reload(false);
+  };
 
   // note: Max date is temporarily capped at 2024 for the purpose of the app.
   return (
     <div>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="f_themes">
-          <Calendar onChange={onChange} value={date} maxDetail={"year"} minDate={new Date("01-01-1852")}
+          <Calendar 
+          onChange={onChange} 
+          value={date} 
+          maxDetail={"year"} 
+          minDate={new Date("01-01-1852")}
           maxDate={new Date("01-01-2024")}/>
-            
-
-            {date.toDateString()}
-        </Form.Group>
-        
-         <Form.Group controlId="f_count">
-             <Form.Label>Article Count:</Form.Label>
-             <Form.Control
-                 type="text"
-                 onChange={handleCountChange}
-             />
+            Chosen date: {date.toDateString()}
         </Form.Group>
         <Button variant="primary" type="submit">
-          Sort-By Params Above
+          Submit
         </Button>
+        <Form.Group controlId="f_count">
+          <Form.Label>Article Count:</Form.Label>
+          <Form.Control
+            type="text"
+            onChange={handleCountChange}
+          />
+        </Form.Group>
       </Form>
+      <NewsFetch count={params.count}/>
     </div>
   );
 }
 
-
-
-//WILL REMOVE BELOW CODE SOON
-
-
- // <Form onSubmit={handleSubmit}>
-    //     <Form.Group controlId="f_themes">
-    //         <Form.Label>Theme:</Form.Label>
-    //         <DropdownButton id="dropdown-themes" title={params.themes}>
-    //             {/* maps through themes array for drop down box */}
-    //             {themes.map((theme, index) => (
-    //                 <Dropdown.Item
-    //                 key={index}
-    //                 onClick={() => handleDropdownSelection(theme)}>
-    //                     {theme}
-    //                 </Dropdown.Item>
-    //             ))}
-    //         </DropdownButton>
-    //     </Form.Group>
-
-    //     <Form.Group controlId="f_count">
-    //         <Form.Label>Article Count:</Form.Label>
-    //         <Form.Control
-    //             type="text"
-    //             onChange={handleCountChange}
-    //         />
-    //     </Form.Group>
-
-    //     <Button variant="primary" type="submit">
-    //         Sort-By Params Above
-    //     </Button>
-    // </Form>
+export default SetNewsParams;

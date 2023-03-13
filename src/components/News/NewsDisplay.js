@@ -7,7 +7,6 @@ const NewsDisplay = (news) => {
 
     useEffect(() => {
         if (!news.length > 0) {
-            
             //extracts content from NY Times News
             const encodedParamsExtract = new URLSearchParams();
             encodedParamsExtract.append("language", "english");
@@ -37,65 +36,67 @@ const NewsDisplay = (news) => {
     },[news]);
 
     return (
-        <Row className="m-3">
-            <Col>
-                <Accordion flush>
-                    <Accordion.Item eventKey={news.news.headline.print_headline}>
-                        <Accordion.Header>                        
-                            <span>
-                                {news.news.headline.print_headline && news.news.headline.main
-                                    ?   <h5>{news.news.headline.print_headline}</h5>
-                                    :   ""
-                                }
-                                {!news.news.headline.print_headline && news.news.headline.main
-                                    ?   <h5>{news.news.headline.main}</h5>
-                                    :   ""
-                                }
-                                <p>News date: {news.news.pub_date.split("T")[0]} - {news.news.pub_date.split("T")[1].split("-")[0]}</p>
-                            </span> 
-                        </Accordion.Header>
-                        <Accordion.Body>
-                            <Card>
-                                <Card.Body>
-                                    <ListGroup className="list-group-flush">
-                                        {news.news.multimedia[0]
-                                        ?   <Card.Img 
-                                                style={{ width: "50vw" }} 
-                                                className="mx-auto" 
-                                                src={"https://www.nytimes.com/" + news.news.multimedia[0].url}
-                                            />
+        <>
+            <Row className="m-3">
+                <Col>
+                    <Accordion flush>
+                        <Accordion.Item eventKey={news.news.headline.print_headline}>
+                            <Accordion.Header>                        
+                                <span>
+                                    {news.news.headline.print_headline && news.news.headline.main
+                                        ?   <h5>{news.news.headline.print_headline}</h5>
                                         :   ""
-                                        }
-                                        <Card.Body>
-                                            <div style={{ textAlign: 'justify' }}>
+                                    }
+                                    {!news.news.headline.print_headline && news.news.headline.main
+                                        ?   <h5>{news.news.headline.main}</h5>
+                                        :   ""
+                                    }
+                                    <p>News date: {news.news.pub_date.split("T")[0]} - {news.news.pub_date.split("T")[1].split("-")[0]}</p>
+                                </span> 
+                            </Accordion.Header>
+                            <Accordion.Body>
+                                <Card>
+                                    <Card.Body>
+                                        <ListGroup className="list-group-flush">
+                                            {news.news.multimedia[0]
+                                            ?   <Card.Img 
+                                                    style={{ width: "50vw" }} 
+                                                    className="mx-auto" 
+                                                    src={"https://www.nytimes.com/" + news.news.multimedia[0].url}
+                                                />
+                                            :   ""
+                                            }
+                                            <Card.Body>
+                                                <div style={{ textAlign: 'justify' }}>
 
-                                                {/* News summary output */}
-                                                {newsExtracted.summary
-                                                ?   <>
-                                                        <h6 className="text-center">Summary:</h6>
-                                                        {newsExtracted.summary}
-                                                    </>
+                                                    {/* News summary output */}
+                                                    {newsExtracted.summary
+                                                    ?   <>
+                                                            <h6 className="text-center">Summary:</h6>
+                                                            {newsExtracted.summary}
+                                                        </>
 
-                                                :   <p className="text-center">Loading Content ...</p>}
-                                            </div>
-                                        </Card.Body>
+                                                    :   <p className="text-center">Loading Content ...</p>}
+                                                </div>
+                                            </Card.Body>
 
-                                        {/* Sentiment analysis output */}
-                                        {newsExtracted >= 0
-                                        ?   ""
+                                            {/* Sentiment analysis output */}
+                                            {newsExtracted >= 0
+                                            ?   ""
 
-                                        :   <Card.Footer className="text-center">
-                                                <NewsSentiment text={newsExtracted.text.replace(/(\r\n|\n|\r)/gm, " ")}/>
-                                            </Card.Footer> 
-                                        }
-                                    </ListGroup>
-                                </Card.Body>
-                            </Card>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
-            </Col>
-        </Row>
+                                            :   <Card.Footer className="text-center">
+                                                    <NewsSentiment text={newsExtracted.text.replace(/(\r\n|\n|\r)/gm, " ")}/>
+                                                </Card.Footer>
+                                            }
+                                        </ListGroup>
+                                    </Card.Body>
+                                </Card>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion>
+                </Col>
+            </Row>
+        </>
     )
 }
 
