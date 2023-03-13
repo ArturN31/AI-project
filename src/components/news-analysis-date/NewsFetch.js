@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import { Row, Col } from "react-bootstrap"
 import NewsDisplay from "./NewsDisplay"
 
-
 import 'react-calendar/dist/Calendar.css';
 
 const NewsFetch = (count) => {
@@ -33,12 +32,12 @@ const NewsFetch = (count) => {
             setNews(newsArray);
         })
         .catch((err) => console.error(err));
-    },[])
+    },[count])
 
     return (
         <>
             <Row className="d-flex justify-content-center">
-                <Col className="col-6">
+                <Col className="col-6 m-4">
                     <p>Total amount of available articles: {news.length}</p>
                 </Col>
             </Row>

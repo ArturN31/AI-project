@@ -29,10 +29,10 @@ const InputForm = ({ get_input }) => {
                 </Form.Group>
             </Form>
             <div className="d-flex justify-content-center">
-                <Button className="mx-2" variant="primary" onClick={send_input_to_parent}>
+                <Button className="mx-2" variant="secondary" onClick={send_input_to_parent}>
                     Analyse
                 </Button>
-                <Button className="mx-2" variant="primary" onClick={text_area_reset}>
+                <Button className="mx-2" variant="secondary" onClick={text_area_reset}>
                     Reset
                 </Button>
             </div>

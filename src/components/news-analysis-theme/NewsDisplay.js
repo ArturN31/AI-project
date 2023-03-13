@@ -42,10 +42,10 @@ const NewsDisplay = (url) => {
                 <Accordion flush>
                     <Accordion.Item eventKey={url.url.title}>
                         <Accordion.Header>                        
-                            <span>
+                            <div>
                                 <h5>{url.url.title}</h5>
                                 <p>News date: {url.url.published_date.split("T")[0]} - {url.url.published_date.split("T")[1].split("-")[0]}</p>
-                            </span> 
+                            </div>
                         </Accordion.Header>
                         <Accordion.Body>
                             <Card>
