@@ -63,8 +63,10 @@ function SetNewsParams() {
         <Form.Group controlId="f_count">
           <Form.Label>Article Count:</Form.Label>
           <Form.Control
-            type="text"
+            type="number"
             onChange={handleCountChange}
+            min='0'
+            max='20'
           />
         </Form.Group>
       </Form>
