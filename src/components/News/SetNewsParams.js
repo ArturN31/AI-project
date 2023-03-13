@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Form, Button, DropdownButton, Dropdown } from "react-bootstrap";
+import { Form, DropdownButton, Dropdown } from "react-bootstrap";
+import NewsFetch from "./NewsFetch";
 
 const themes = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "nyregion", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sundayreview", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"];
 
 
 // used to update the state of the params. Uses onSubmit
-export function SetNewsParams({ onSubmit }) {
+function SetNewsParams() {
     const [params, setParams] = useState({
         themes: "home",
         count: 1
@@ -24,36 +25,37 @@ export function SetNewsParams({ onSubmit }) {
     // used to handle form submission (params are updated)
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit({ ...params });
+        window.location.reload(false);
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="f_themes">
-                <Form.Label>Theme:</Form.Label>
-                <DropdownButton id="dropdown-themes" title={params.themes}>
-                    {/* maps through themes array for drop down box */}
-                    {themes.map((theme, index) => (
-                        <Dropdown.Item
-                        key={index}
-                        onClick={() => handleDropdownSelection(theme)}>
-                            {theme}
-                        </Dropdown.Item>
-                    ))}
-                </DropdownButton>
-            </Form.Group>
-
-            <Form.Group controlId="f_count">
-                <Form.Label>Article Count:</Form.Label>
-                <Form.Control
-                    type="text"
-                    onChange={handleCountChange}
-                />
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-                Sort-By Params Above
-            </Button>
-        </Form>
+        <div>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="f_themes">
+                    <Form.Label>Theme:</Form.Label>
+                    <DropdownButton id="dropdown-themes" title={params.themes}>
+                        {/* maps through themes array for drop down box */}
+                        {themes.map((theme, index) => (
+                            <Dropdown.Item
+                            key={index}
+                            onClick={() => handleDropdownSelection(theme)}>
+                                {theme}
+                            </Dropdown.Item>
+                        ))}
+                    </DropdownButton>
+                </Form.Group>
+                <Form.Group controlId="f_count">
+                    <Form.Label>Article Count:</Form.Label>
+                    <Form.Control
+                        type="number"
+                        onChange={handleCountChange}
+                        min='0'
+                    />
+                </Form.Group>
+            </Form>
+            <NewsFetch params={params}/>
+        </div>
     );
 };
+
+export default SetNewsParams;

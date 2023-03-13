@@ -1,25 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { Row, Col } from "react-bootstrap"
 import NewsDisplay from "./NewsDisplay"
-import { SetNewsParams } from "./SetNewsParams"
 
-const NewsFetch = () => {
+const NewsFetch = (params) => {
     const [newsUrls, setNewsUrls] = useState([]);
-
-    // useState for selectedTheme and count
-    const [selectedTheme, setSelectedTheme] = useState("home");
-    const [selectedCount, setSelectedCount] = useState(1);
-
-    // handle Submit from setNewsParams
-    const handleSubmit = ({ themes, count }) => {
-        setSelectedTheme(themes);
-        setSelectedCount(count);
-    };
 
     useEffect(() => {
         const newsArray = [];
         //fetches news from NY Times API
-        const url = `https://api.nytimes.com/svc/topstories/v2/${selectedTheme}.json?api-key=`;
+        const url = `https://api.nytimes.com/svc/topstories/v2/${params.params.themes}.json?api-key=`;
         fetch(url + process.env.REACT_APP_NY_TIMES_API_KEY)
         .then(async (response) => {
             if (!response.ok) {throw response} 
@@ -39,20 +28,19 @@ const NewsFetch = () => {
         })
         .catch((err) => console.error(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedTheme]);
+    }, [params]);
 
     return (
         <>
             <Row className="d-flex justify-content-center">
                 <Col className="col-6">
-                    <SetNewsParams onSubmit={handleSubmit}/>
                     <p>Total amount of available articles: {newsUrls.length}</p>
                 </Col>
             </Row>
             <Row>
                 <Col>
                 {/* maps through NewsUrls and uses slice function to limit based on what the user sets as the count in SetNewsParams */}
-                {newsUrls.slice(0, selectedCount)
+                {newsUrls.slice(0, params.params.count)
                     .map((n) => <NewsDisplay url={n} key={n.url} />)}
                 </Col>
             </Row>
