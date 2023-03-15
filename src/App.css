@@ -1,3 +1,7 @@
 .active-link {
   color:antiquewhite !important;
 }
+
+#map{
+  width: 100px;
+}
