@@ -1,12 +1,14 @@
 import React from 'react';
 import GetUserInput from '../components/text-analysis/GetUserInput';
 
+import { Container } from 'react-bootstrap';
+
 function TextAnalysis() {
   return (
-    <div className='text-center'>
-      <h1 className='m-5'>TEXT ANALYSIS</h1>
+    <Container fluid>
+      <h1 className='text-center m-5 mb-3 text-white'>Find the emotion in your text</h1>
       <GetUserInput/>
-    </div>
+    </Container>
   );
 }
 

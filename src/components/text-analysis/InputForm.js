@@ -22,19 +22,25 @@ const InputForm = ({ get_input }) => {
 
     return (
         <>
-            <Form>
-                <Form.Group className="mb-4" controlId="textarea">
-                    <Form.Label className="d-flex justify-content-center">Enter text for sentiment analysis: </Form.Label>
-                    <Form.Control as="textarea" rows={3} ref={textAreaRef} value={input} onChange={e => setInput(e.target.value)}/>
-                </Form.Group>
-            </Form>
-            <div className="d-flex justify-content-center">
-                <Button className="mx-2" variant="secondary" onClick={send_input_to_parent}>
-                    Analyse
-                </Button>
-                <Button className="mx-2" variant="secondary" onClick={text_area_reset}>
-                    Reset
-                </Button>
+            <div className="user-input-div">
+                <Form>
+                    <Form.Group className="mb-4" controlId="textarea">
+                        <Form.Label className="h1 d-flex justify-content-center">Enter your Text </Form.Label>
+                        <p className="text-center">
+                            Submit text in the manner of single sentences or even entire paragraphs. <br></br>
+                            Upon which sentiment analysis will be performed to deterimne the emotion that it conveys.
+                        </p>
+                        <Form.Control as="textarea" rows={20} ref={textAreaRef} value={input} onChange={e => setInput(e.target.value)}/>
+                    </Form.Group>
+                </Form>
+                <div className="d-flex justify-content-end">
+                    <Button className="mx-2 btn-reset" onClick={text_area_reset}>
+                        Reset
+                    </Button>
+                    <Button className="mx-2 btn-submit" onClick={send_input_to_parent}>
+                        Analyse
+                    </Button>
+                </div>
             </div>
         </>
     )

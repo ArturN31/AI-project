@@ -13,7 +13,7 @@ const GetUserInput = () => {
 
     return (
         <>
-            <Row className="m-5">
+            <Row className="mx-5">
                 <Col>
                     <InputForm get_input={get_input}/>
                 </Col>

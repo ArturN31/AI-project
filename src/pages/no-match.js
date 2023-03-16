@@ -1,8 +1,11 @@
 import React from 'react';
+import { Container } from 'react-bootstrap'
 
 function NoMatch() {
   return (
-      <h1 className='text-center m-5'>PAGE DOES NOT EXIST</h1>
+    <Container fluid>
+      <h1 className='text-center m-5 text-white'>PAGE DOES NOT EXIST</h1>
+    </Container>
   );
 }
 

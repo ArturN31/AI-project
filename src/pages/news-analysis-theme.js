@@ -1,12 +1,14 @@
 import React from 'react';
 import SetNewsParams from '../components/news-analysis-theme/SetNewsParams'
 
+import { Container } from 'react-bootstrap';
+
 function NewsAnalysisTheme() {
   return (
-    <div className='text-center'>
-      <h1 className='m-5'>NEWS ANALYSIS BY THEME</h1>
+    <Container fluid>
+      <h1 className='text-center m-5 text-white'>Analysis by theme</h1>
       <SetNewsParams/>
-    </div>
+    </Container>
   );
 }
 
