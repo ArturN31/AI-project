@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react"
 
+import SentimentOutput from './SentimentOutput';
+import Anger from '../emotion-components/Anger';
+import Fear from '../emotion-components/Fear';
+import Joy from '../emotion-components/Joy';
+import Neutral from '../emotion-components/Neutral';
+import Sadness from "../emotion-components/Sadness";
+
 const GetUserInput = ({ analysed_text }) => {
     const [sentimentAnalysis, setSentimentAnalysis] = useState([]);
 
@@ -11,7 +18,7 @@ const GetUserInput = ({ analysed_text }) => {
                 'X-RapidAPI-Key': process.env.REACT_APP_TEXTPROBE_API_KEY,
                 'X-RapidAPI-Host': 'textprobe.p.rapidapi.com'
             },
-            body: '{"text":"' + analysed_text + '"}'
+            body: '{"lang":"en", "text":"' + analysed_text + '"}'
         };
 
         if(analysed_text !== "") { 
@@ -28,48 +35,36 @@ const GetUserInput = ({ analysed_text }) => {
     }, [analysed_text])
 
     return (
-        sentimentAnalysis.length <= 0
-        ?   <>
-                {analysed_text.length <= 0
-                    ? ""
-                    : "Loading analysis..."
-                }
-            </>
-        :   <>
-                <h5>Sentiment analysis:</h5>
-                {sentimentAnalysis.emotion_prediction
-                    ? <p>Emotion prediction: <span> {sentimentAnalysis.emotion_prediction}</span></p>
-                    : "Loading analysis..."
-                }
-                {sentimentAnalysis.emotion_scores.Anger
-                    ? <p>Anger: <span> {sentimentAnalysis.emotion_scores.Anger}</span></p>
-                    : "Loading analysis..."
-                }
-                {sentimentAnalysis.emotion_scores.Fear
-                    ? <p>Fear: <span> {sentimentAnalysis.emotion_scores.Fear}</span></p>
-                    : "Loading analysis..."
-                }
-                {sentimentAnalysis.emotion_scores.Joy
-                    ? <p>Joy: <span> {sentimentAnalysis.emotion_scores.Joy}</span></p>
-                    : "Loading analysis..."
-                }
-                {sentimentAnalysis.emotion_scores.Neutral
-                    ? <p>Neutral: <span> {sentimentAnalysis.emotion_scores.Neutral}</span></p>
-                    : "Loading analysis..."
-                }
-                {sentimentAnalysis.emotion_scores.Sadness
-                    ? <p>Sadness: <span> {sentimentAnalysis.emotion_scores.Sadness}</span></p>
-                    : "Loading analysis..."
-                }
-                {sentimentAnalysis.sentiment_scores.Negative
-                    ? <p>Negative:  <span> {sentimentAnalysis.sentiment_scores.Negative}</span></p>
-                    : "Loading analysis..."
-                }
-                {sentimentAnalysis.sentiment_scores.Positive
-                    ? <p>Positive: <span> {sentimentAnalysis.sentiment_scores.Positive}</span></p>
-                    : "Loading analysis..."
-                }
-            </>
+        <div className="col-xs-12 col-md-10 col-xl-6 mx-auto">
+            {
+                sentimentAnalysis.emotion_prediction === "Anger"
+                ?   <>
+                        <Anger/>
+                        <SentimentOutput sentimentAnalysis={sentimentAnalysis} analysed_text={analysed_text}/>
+                    </>
+                :   sentimentAnalysis.emotion_prediction === "Fear"
+                    ?   <>
+                            <Fear/>
+                            <SentimentOutput sentimentAnalysis={sentimentAnalysis} analysed_text={analysed_text}/>
+                        </>
+                    :   sentimentAnalysis.emotion_prediction === "Joy"
+                        ?   <>
+                                <Joy/>
+                                <SentimentOutput sentimentAnalysis={sentimentAnalysis} analysed_text={analysed_text}/>
+                            </>
+                        :   sentimentAnalysis.emotion_prediction === "Neutral"
+                            ?   <>
+                                    <Neutral/>
+                                    <SentimentOutput sentimentAnalysis={sentimentAnalysis} analysed_text={analysed_text}/>
+                                </>
+                            :   sentimentAnalysis.emotion_prediction === "Sadness"
+                                ?   <>
+                                        <Sadness/>
+                                        <SentimentOutput sentimentAnalysis={sentimentAnalysis} analysed_text={analysed_text}/>
+                                    </>
+                                :   ""
+            }
+        </div>
     )
 }
 

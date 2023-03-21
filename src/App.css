@@ -64,6 +64,14 @@ p {
   background-color: #ff0f7b !important;
 }
 
+.btn-select {
+  background-color: #0275d8 !important;
+}
+
+#dropdown-themes {
+  width: 100%;
+}
+
 .user-input-div {
   padding: 35px 65px 35px 65px;
   border-radius: 39px;
@@ -73,6 +81,51 @@ p {
 }
 /* EOF TEMPLATE */
 
+/* EMOTION COMPONENTS */
+.emotion-div {
+  padding: 35px 65px 35px 65px;
+  border-radius: 34px;
+  box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.25);
+
+  color: #ffff;
+  text-align: left;
+}
+
+.anger {
+  background: linear-gradient(180deg, #D3321D 26.32%, #FFCF67 100%);
+}
+
+.fear {
+  background: linear-gradient(180deg, #3D05DD 26.32%, #FCB0F3 100%);
+}
+
+.joy {
+  background: linear-gradient(180deg, #FF930F 26.32%, #FFF95B 100%);
+}
+
+.neutral {
+  background: linear-gradient(180deg, #32C4C0 26.32%, #8DE9D5 100%);
+}
+
+.sadness {
+  background: linear-gradient(180deg, #103783 26.32%, #9BAFD9 100%);
+}
+/* EOF EMOTION COMPONENTS */
+
+/* ACCORDION */
+.accordion-header {
+  border: 2px solid #000 !important;
+  border-radius: 23px;
+}
+
+.accordion-item, .accordion-button {
+  border-radius: 23px !important;
+}
+/* EOF ACCORDION */
+
+/* REACT MAP */
 #map{
   width: 100px;
 }
+
+/* EOF REACT MAP */

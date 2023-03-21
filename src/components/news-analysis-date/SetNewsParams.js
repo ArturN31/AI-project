@@ -47,8 +47,13 @@ function SetNewsParams() {
   return (
     <>
       <Row>
-        <Col className="col-6 mx-auto text-center">
-          <Form onSubmit={handleSubmit}>
+        <Col>
+          <Form onSubmit={handleSubmit} className="col-6 mx-auto user-input-div text-center">
+            <Row className="text-center">
+              <Col>
+                  <p>First choose the date on the calendar presented bellow, then press submit and enter the article count to be displayed.</p>
+              </Col>
+            </Row>
             <Form.Group controlId="f_themes">
               <Calendar 
               onChange={onChange} 
@@ -59,7 +64,7 @@ function SetNewsParams() {
               className='mx-auto'/>
                 <p className="mt-3">Chosen date: {date.toDateString().split(' ')[1]} {date.toDateString().split(' ')[3]}</p>
             </Form.Group>
-            <Button variant="secondary" type="submit" className="m-4 mt-2">
+            <Button type="submit" className="m-4 mt-2 btn-submit">
               Submit
             </Button>
             <Form.Group controlId="f_count">
@@ -69,6 +74,7 @@ function SetNewsParams() {
                 onChange={handleCountChange}
                 min='0'
                 max='20'
+                className="w-50 mx-auto"
               />
             </Form.Group>
           </Form>

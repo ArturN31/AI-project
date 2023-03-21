@@ -31,33 +31,45 @@ function SetNewsParams() {
     return (
         <Row>
             <Col>
-                <Form onSubmit={handleSubmit} className='col-6 mx-auto'>
-                    <Form.Group controlId="f_themes" className='m-4'>
-                        <Form.Label>Theme:</Form.Label>
-                        <DropdownButton 
-                        id="dropdown-themes" 
-                        title={params.themes} 
-                        variant="secondary"
-                        menuVariant="dark"
-                        >
-                            {/* maps through themes array for drop down box */}
-                            {themes.map((theme, index) => (
-                                <Dropdown.Item
-                                key={index}
-                                onClick={() => handleDropdownSelection(theme)}>
-                                    {theme}
-                                </Dropdown.Item>
-                            ))}
-                        </DropdownButton>
-                    </Form.Group>
-                    <Form.Group controlId="f_count">
-                        <Form.Label>Article Count:</Form.Label>
-                        <Form.Control
-                            type="number"
-                            onChange={handleCountChange}
-                            min='0'
-                        />
-                    </Form.Group>
+                <Form onSubmit={handleSubmit} className='col-6 mx-auto user-input-div'>
+                    <Row className="text-center">
+                        <Col>
+                            <p>First choose the theme from a drop down list, then enter the article count to be displayed.</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Form.Group controlId="f_count">
+                                <Form.Label>Article Count:</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    onChange={handleCountChange}
+                                    min='0'
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group controlId="f_themes" className='mb-4'>
+                                <Form.Label>Theme:</Form.Label>
+                                <DropdownButton 
+                                id="dropdown-themes" 
+                                title={params.themes} 
+                                className="btn-select"
+                                menuVariant="dark"
+                                drop="down-centered"
+                                >
+                                    {/* maps through themes array for drop down box */}
+                                    {themes.map((theme, index) => (
+                                        <Dropdown.Item
+                                        key={index}
+                                        onClick={() => handleDropdownSelection(theme)}>
+                                            {theme}
+                                        </Dropdown.Item>
+                                    ))}
+                                </DropdownButton>
+                            </Form.Group>
+                        </Col>
+                    </Row>
                 </Form>
                 <NewsFetch params={params}/>
             </Col>

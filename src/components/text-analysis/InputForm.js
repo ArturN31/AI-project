@@ -30,7 +30,7 @@ const InputForm = ({ get_input }) => {
                             Submit text in the manner of single sentences or even entire paragraphs. <br></br>
                             Upon which sentiment analysis will be performed to deterimne the emotion that it conveys.
                         </p>
-                        <Form.Control as="textarea" rows={20} ref={textAreaRef} value={input} onChange={e => setInput(e.target.value)}/>
+                        <Form.Control as="textarea" rows={10} ref={textAreaRef} value={input} onChange={e => setInput(e.target.value)}/>
                     </Form.Group>
                 </Form>
                 <div className="d-flex justify-content-end">

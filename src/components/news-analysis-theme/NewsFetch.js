@@ -33,7 +33,7 @@ const NewsFetch = (params) => {
     return (
         <>
             <Row className="d-flex justify-content-center">
-                <Col className="col-6 m-4">
+                <Col className="col-6 m-4 text-white text-center">
                     <p>Total amount of available articles: {newsUrls.length}</p>
                 </Col>
             </Row>

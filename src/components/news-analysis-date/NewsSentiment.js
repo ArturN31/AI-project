@@ -1,4 +1,12 @@
 import React, { useEffect, useState } from "react"
+import { Row, Col } from "react-bootstrap"
+
+import SentimentOutput from './SentimentOutput';
+import Anger from '../emotion-components/Anger';
+import Fear from '../emotion-components/Fear';
+import Joy from '../emotion-components/Joy';
+import Neutral from '../emotion-components/Neutral';
+import Sadness from "../emotion-components/Sadness";
 
 const NewsSentiment = (text) => {
     const [sentimentAnalysis, setSentimentAnalysis] = useState([]);
@@ -22,39 +30,67 @@ const NewsSentiment = (text) => {
             })
             .then((incomingData) => {
                 setSentimentAnalysis(incomingData);
+                
             }) 
             .catch((err) => console.error(err)) 
         }
     },[text.text]);
 
     return (
-        sentimentAnalysis.length <= 0
-        ?   <>
-                {text.text.length <= 0
-                    ? ""
-                    : "Loading analysis..."
-                }
-            </>
-        :   <>
-                <h5>Sentiment analysis:</h5>
-                {sentimentAnalysis.emotion_prediction && sentimentAnalysis.emotion_scores.Anger
-                    ?   <>
-                            <p>Emotion prediction: <span> {sentimentAnalysis.emotion_prediction}</span></p>
-                            <p>Anger: <span> {sentimentAnalysis.emotion_scores.Anger}</span></p>
-                            <p>Fear: <span> {sentimentAnalysis.emotion_scores.Fear}</span></p>
-                            <p>Joy: <span> {sentimentAnalysis.emotion_scores.Joy}</span></p>
-                            <p>Neutral: <span> {sentimentAnalysis.emotion_scores.Neutral}</span></p>
-                            <p>Sadness: <span> {sentimentAnalysis.emotion_scores.Sadness}</span></p>
-                            <p>Negative:  <span> {sentimentAnalysis.sentiment_scores.Negative}</span></p>
-                            <p>Positive: <span> {sentimentAnalysis.sentiment_scores.Positive}</span></p>
-                        </>
-                    :   <>
-                            <p>Emotion prediction: <span> {sentimentAnalysis.emotion_prediction}</span> - cannot be processed</p>
-                            <p>Negative:  <span> {sentimentAnalysis.sentiment_scores.Negative}</span></p>
-                            <p>Positive: <span> {sentimentAnalysis.sentiment_scores.Positive}</span></p>
-                        </>
-                }
-            </>
+        <div className="col-xs-12 col-md-11 mx-auto">
+            {
+                sentimentAnalysis.emotion_prediction === "Anger"
+                ?   <Row>
+                        <Col className="col-xs-12 col-sm-12 col-xl-8">
+                            <Anger/>
+                        </Col>
+                        <Col className="col-xs-12 col-sm-12 col-xl-4">
+                            <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={text}/>
+                        </Col>
+                    </Row>
+                :   sentimentAnalysis.emotion_prediction === "Fear"
+                    ?   <Row>
+                            <Col className="col-xs-12 col-sm-12 col-xl-8">
+                                <Fear/>
+                            </Col>
+                            <Col className="col-xs-12 col-sm-12 col-xl-4">
+                                <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={text}/>
+                            </Col>
+                        </Row>
+                    :   sentimentAnalysis.emotion_prediction === "Joy"
+                        ?   <Row>
+                                <Col className="col-xs-12 col-sm-12 col-xl-8">
+                                    <Joy/>
+                                </Col>
+                                <Col className="col-xs-12 col-sm-12 col-xl-4">
+                                    <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={text}/>
+                                </Col>
+                            </Row>
+                        :   sentimentAnalysis.emotion_prediction === "Neutral"
+                            ?   <Row>
+                                    <Col className="col-xs-12 col-sm-12 col-xl-8 d-flex align-items-center">
+                                        <Neutral/>
+                                    </Col>
+                                    <Col className="col-xs-12 col-sm-12 col-xl-4">
+                                        <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={text}/>
+                                    </Col>
+                                </Row>
+                            :   sentimentAnalysis.emotion_prediction === "Sadness"
+                                ?   <Row>
+                                        <Col className="col-xs-12 col-sm-12 col-xl-8">
+                                            <Sadness/>
+                                        </Col>
+                                        <Col className="col-xs-12 col-sm-12 col-xl-4">
+                                            <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={text}/>
+                                        </Col>
+                                    </Row>
+                                :   sentimentAnalysis.emotion_prediction
+                                    ?   <Col className="col-xs-12 col-sm-12 col-xl-4">
+                                            <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={text}/>
+                                        </Col>
+                                    :   ""
+            }
+        </div>
     )
 }
 

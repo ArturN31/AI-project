@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Row, Col } from "react-bootstrap"
+import React, { useState } from "react";
+import { Row, Col } from "react-bootstrap";
 
 import InputForm from "./InputForm";
 import SentimentAnalysis from "./SentimentAnalysis";
@@ -14,20 +14,8 @@ const GetUserInput = () => {
     return (
         <>
             <Row className="mx-5">
-                <Col>
+                <Col className="col-xs-12 col-md-10 col-xl-6 mx-auto">
                     <InputForm get_input={get_input}/>
-                </Col>
-            </Row>
-            <Row className="m-5 text-center">
-                <Col>
-                    {/* Conditional rendering of user input */}
-                    {input
-                    ?   <>
-                            <h5>The text you have entered:</h5>
-                            <p>{input}</p>
-                        </>
-                    :   ""
-                    }
                 </Col>
             </Row>
             <Row className="m-5 text-center">

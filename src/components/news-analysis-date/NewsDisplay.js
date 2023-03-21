@@ -78,15 +78,13 @@ const NewsDisplay = (news) => {
 
                                                     :   <p className="text-center">Loading Content ...</p>}
                                                 </div>
+                                                <hr></hr>
                                             </Card.Body>
 
                                             {/* Sentiment analysis output */}
                                             {newsExtracted >= 0
                                             ?   ""
-
-                                            :   <Card.Footer className="text-center">
-                                                    <NewsSentiment text={newsExtracted.text.replace(/(\r\n|\n|\r)/gm, " ")}/>
-                                                </Card.Footer>
+                                            :   <NewsSentiment text={newsExtracted.text.replace(/(\r\n|\n|\r)/gm, " ")}/>
                                             }
                                         </ListGroup>
                                     </Card.Body>

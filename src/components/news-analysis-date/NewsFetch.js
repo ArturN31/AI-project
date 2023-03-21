@@ -10,7 +10,7 @@ const NewsFetch = (count) => {
     useEffect(() => {
         //fetches news from NY Times API
         const newsArray = [];
-        const url = `http://localhost:3001/news`
+        const url = `http://localhost:3001/news`;
 
         fetch(url)
         .then(async (response) => {
@@ -37,7 +37,7 @@ const NewsFetch = (count) => {
     return (
         <>
             <Row className="d-flex justify-content-center">
-                <Col className="col-6 m-4">
+                <Col className="col-6 m-4 text-center">
                     <p>Total amount of available articles: {news.length}</p>
                 </Col>
             </Row>
