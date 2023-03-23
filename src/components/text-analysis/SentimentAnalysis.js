@@ -62,7 +62,7 @@ const GetUserInput = ({ analysed_text }) => {
                                         <Sadness/>
                                         <SentimentOutput sentimentAnalysis={sentimentAnalysis} analysed_text={analysed_text}/>
                                     </>
-                                :   ""
+                                :   <SentimentOutput sentimentAnalysis={sentimentAnalysis} analysed_text={analysed_text}/>
             }
         </div>
     )

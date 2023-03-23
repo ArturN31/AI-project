@@ -16,6 +16,7 @@ const SentimentOutput = ({sentimentAnalysis, text}) => {
                         {sentimentAnalysis.emotion_prediction && sentimentAnalysis.emotion_scores.Anger
                             ?   <>
                                     <p>Emotion prediction: <span> {sentimentAnalysis.emotion_prediction}</span></p>
+                                    <p>Sentiment prediction: <span> {sentimentAnalysis.sentiment_prediction}</span></p>
                                     <p>Anger: <span> {sentimentAnalysis.emotion_scores.Anger}</span></p>
                                     <p>Fear: <span> {sentimentAnalysis.emotion_scores.Fear}</span></p>
                                     <p>Joy: <span> {sentimentAnalysis.emotion_scores.Joy}</span></p>
@@ -26,6 +27,7 @@ const SentimentOutput = ({sentimentAnalysis, text}) => {
                                 </>
                             :   <>
                                     <p>Emotion prediction: <span> {sentimentAnalysis.emotion_prediction}</span> - cannot be processed</p>
+                                    <p>Sentiment prediction: <span> {sentimentAnalysis.sentiment_prediction}</span></p>
                                     <p>Negative:  <span> {sentimentAnalysis.sentiment_scores.Negative}</span></p>
                                     <p>Positive: <span> {sentimentAnalysis.sentiment_scores.Positive}</span></p>
                                 </>

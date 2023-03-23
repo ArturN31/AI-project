@@ -13,37 +13,24 @@ const SentimentOutput = ({sentimentAnalysis, analysed_text}) => {
                     </>
                 :   <>
                         <h5>Sentiment analysis:</h5>
-                        {sentimentAnalysis.emotion_prediction
-                            ? <p>Emotion prediction: <span> {sentimentAnalysis.emotion_prediction}</span></p>
-                            : "Loading analysis..."
-                        }
-                        {sentimentAnalysis.emotion_scores.Anger
-                            ? <p>Anger: <span> {sentimentAnalysis.emotion_scores.Anger}</span></p>
-                            : "Loading analysis..."
-                        }
-                        {sentimentAnalysis.emotion_scores.Fear
-                            ? <p>Fear: <span> {sentimentAnalysis.emotion_scores.Fear}</span></p>
-                            : "Loading analysis..."
-                        }
-                        {sentimentAnalysis.emotion_scores.Joy
-                            ? <p>Joy: <span> {sentimentAnalysis.emotion_scores.Joy}</span></p>
-                            : "Loading analysis..."
-                        }
-                        {sentimentAnalysis.emotion_scores.Neutral
-                            ? <p>Neutral: <span> {sentimentAnalysis.emotion_scores.Neutral}</span></p>
-                            : "Loading analysis..."
-                        }
-                        {sentimentAnalysis.emotion_scores.Sadness
-                            ? <p>Sadness: <span> {sentimentAnalysis.emotion_scores.Sadness}</span></p>
-                            : "Loading analysis..."
-                        }
-                        {sentimentAnalysis.sentiment_scores.Negative
-                            ? <p>Negative:  <span> {sentimentAnalysis.sentiment_scores.Negative}</span></p>
-                            : "Loading analysis..."
-                        }
-                        {sentimentAnalysis.sentiment_scores.Positive
-                            ? <p>Positive: <span> {sentimentAnalysis.sentiment_scores.Positive}</span></p>
-                            : "Loading analysis..."
+                        {sentimentAnalysis.emotion_prediction && sentimentAnalysis.emotion_scores.Anger
+                            ?   <>
+                                    <p>Emotion prediction: <span> {sentimentAnalysis.emotion_prediction}</span></p>
+                                    <p>Sentiment prediction: <span> {sentimentAnalysis.sentiment_prediction}</span></p>
+                                    <p>Anger: <span> {sentimentAnalysis.emotion_scores.Anger}</span></p>
+                                    <p>Fear: <span> {sentimentAnalysis.emotion_scores.Fear}</span></p>
+                                    <p>Joy: <span> {sentimentAnalysis.emotion_scores.Joy}</span></p>
+                                    <p>Neutral: <span> {sentimentAnalysis.emotion_scores.Neutral}</span></p>
+                                    <p>Sadness: <span> {sentimentAnalysis.emotion_scores.Sadness}</span></p>
+                                    <p>Negative:  <span> {sentimentAnalysis.sentiment_scores.Negative}</span></p>
+                                    <p>Positive: <span> {sentimentAnalysis.sentiment_scores.Positive}</span></p>
+                                </>
+                            :   <>
+                                    <p>Emotion prediction: <span> {sentimentAnalysis.emotion_prediction}</span> - cannot be processed</p>
+                                    <p>Sentiment prediction: <span> {sentimentAnalysis.sentiment_prediction}</span></p>
+                                    <p>Negative:  <span> {sentimentAnalysis.sentiment_scores.Negative}</span></p>
+                                    <p>Positive: <span> {sentimentAnalysis.sentiment_scores.Positive}</span></p>
+                                </>
                         }
                     </>
             }
