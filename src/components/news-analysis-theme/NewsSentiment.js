@@ -12,8 +12,9 @@ const NewsSentiment = (props) => {
     const [sentimentAnalysis, setSentimentAnalysis] = useState([]);
 
     useEffect(() => {
-        if(props.text !== "") { 
-            fetchData()
+        //cheching if text is not ""
+        if(props.text !== "") {
+            fetchData(); 
         }
     },[]);
 
@@ -34,8 +35,8 @@ const NewsSentiment = (props) => {
                 return response.json();
             })
             .then((incomingData) => {
-                setSentimentAnalysis(incomingData);
-                props.handleNewSentiment(incomingData.emotion_prediction);
+                setSentimentAnalysis(incomingData); //setting state
+                props.handleNewSentiment(incomingData.emotion_prediction); //passing emotion_prediction to parent component, which is newsDisplay.js
             }) 
             .catch((err) => console.error(err)) 
     }

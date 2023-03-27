@@ -5,8 +5,12 @@ import NewsDisplay from "./NewsDisplay"
 const NewsFetch = (params) => {
     const [newsUrls, setNewsUrls] = useState([]);
 
-    let sentimentTotalArray = []
+    let sentimentTotalArray = [] //array that stores all sentiment values
+
     let handleTotalSentiment = sentiment => {
+        //pushing values to an array
+        //values are being passed from NewsSentiment.js to NewsDisplay.js, then to NewsFetch.js
+        //NewsSentiment(children of NewsDisplay file) -> NewsDisplay(children of current file) -> NewsFetch(current file)
         sentimentTotalArray.push(sentiment);
         console.log(sentimentTotalArray);
     }

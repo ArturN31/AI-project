@@ -5,15 +5,8 @@ import NewsSentiment from "./NewsSentiment";
 const NewsDisplay = (props) => {
     const [newsExtracted, setNewsExtracted] = useState([]);
 
-    let sentimentArray = [];
-
     let handleNewSentiment = sentiment => {
-        outputSentiments(sentiment);
-    }
-
-    let outputSentiments = (sentiment) => {
-        sentimentArray.push(sentiment);
-        props.handleTotalSentiment(sentimentArray);
+        props.handleTotalSentiment(sentiment); //passing childs data to parent component, which is newsFetch.js
     }
 
     useEffect(() => {
