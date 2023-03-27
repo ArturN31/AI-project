@@ -5,6 +5,12 @@ import NewsDisplay from "./NewsDisplay"
 const NewsFetch = (params) => {
     const [newsUrls, setNewsUrls] = useState([]);
 
+    let sentimentTotalArray = []
+    let handleTotalSentiment = sentiment => {
+        sentimentTotalArray.push(sentiment);
+        console.log(sentimentTotalArray);
+    }
+
     useEffect(() => {
         const newsArray = [];
         //fetches news from NY Times API
@@ -41,7 +47,7 @@ const NewsFetch = (params) => {
                 <Col>
                 {/* maps through NewsUrls and uses slice function to limit based on what the user sets as the count in SetNewsParams */}
                 {newsUrls.slice(0, params.params.count)
-                    .map((n) => <NewsDisplay url={n} key={n.url} />)}
+                    .map((n) => <NewsDisplay handleTotalSentiment={handleTotalSentiment} url={n} key={n.url} />)}
                 </Col>
             </Row>
         </>

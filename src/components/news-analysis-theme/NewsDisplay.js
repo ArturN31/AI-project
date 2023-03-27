@@ -2,16 +2,26 @@ import React, { useEffect, useState } from "react"
 import { Row, Col, Card, Accordion, ListGroup } from "react-bootstrap"
 import NewsSentiment from "./NewsSentiment";
 
-const NewsDisplay = (url) => {
+const NewsDisplay = (props) => {
     const [newsExtracted, setNewsExtracted] = useState([]);
 
+    let sentimentArray = [];
+
+    let handleNewSentiment = sentiment => {
+        outputSentiments(sentiment);
+    }
+
+    let outputSentiments = (sentiment) => {
+        sentimentArray.push(sentiment);
+        props.handleTotalSentiment(sentimentArray);
+    }
+
     useEffect(() => {
-        if (!url.length > 0) {
-            
+        if (!props.length > 0) {
             //extracts content from NY Times News
             const encodedParamsExtract = new URLSearchParams();
             encodedParamsExtract.append("language", "english");
-            encodedParamsExtract.append("url", url.url.url);
+            encodedParamsExtract.append("url", props.url.url);
 
             const optionsExtract = {
                 method: 'POST',
@@ -40,22 +50,22 @@ const NewsDisplay = (url) => {
         <Row className="m-3">
             <Col>
                 <Accordion flush>
-                    <Accordion.Item eventKey={url.url.title}>
+                    <Accordion.Item eventKey={props.url.title}>
                         <Accordion.Header>                        
                             <div>
-                                <h5>{url.url.title}</h5>
-                                <p>News date: {url.url.published_date.split("T")[0]} - {url.url.published_date.split("T")[1].split("-")[0]}</p>
+                                <h5>{props.url.title}</h5>
+                                <p>News date: {props.url.published_date.split("T")[0]} - {props.url.published_date.split("T")[1].split("-")[0]}</p>
                             </div>
                         </Accordion.Header>
                         <Accordion.Body>
                             <Card>
                                 <Card.Body>
                                     <ListGroup className="list-group-flush">
-                                        {url.url.multimedia
+                                        {props.url.multimedia
                                         ?   <Card.Img 
                                                 style={{ width: "50vw" }} 
                                                 className="mx-auto" 
-                                                src={url.url.multimedia[0].url}
+                                                src={props.url.multimedia[0].url}
                                             />
 
                                         :   ""
@@ -77,7 +87,7 @@ const NewsDisplay = (url) => {
                                         {/* Sentiment analysis output */}
                                         {newsExtracted >= 0
                                         ?   ""
-                                        :   <NewsSentiment text={newsExtracted.text.replace(/(\r\n|\n|\r)/gm, " ")}/>
+                                        :   <NewsSentiment handleNewSentiment={handleNewSentiment} text={newsExtracted.text.replace(/(\r\n|\n|\r)/gm, " ")}/>
                                         }
                                     </ListGroup>
                                 </Card.Body>
@@ -86,7 +96,7 @@ const NewsDisplay = (url) => {
                     </Accordion.Item>
                 </Accordion>
             </Col>
-        </Row>
+        </Row>   
     )
 }
 

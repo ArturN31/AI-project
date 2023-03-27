@@ -8,10 +8,16 @@ import Joy from '../emotion-components/Joy';
 import Neutral from '../emotion-components/Neutral';
 import Sadness from "../emotion-components/Sadness";
 
-const NewsSentiment = (text) => {
+const NewsSentiment = (props) => {
     const [sentimentAnalysis, setSentimentAnalysis] = useState([]);
 
     useEffect(() => {
+        if(props.text !== "") { 
+            fetchData()
+        }
+    },[]);
+
+    async function fetchData() {
         const options = {
             method: 'POST',
             headers: {
@@ -19,21 +25,20 @@ const NewsSentiment = (text) => {
                 'X-RapidAPI-Key': process.env.REACT_APP_TEXTPROBE_API_KEY,
                 'X-RapidAPI-Host': 'textprobe.p.rapidapi.com'
             },
-            body: '{"text":"' + text.text + '"}'
+            body: '{"text":"' + props.text + '"}'
         };
 
-        if(text.text !== "") { 
-            fetch('https://textprobe.p.rapidapi.com/feelings', options)
+        await fetch('https://textprobe.p.rapidapi.com/feelings', options)
              .then((response) => {
                 if (!response.ok) {throw response} 
                 return response.json();
             })
             .then((incomingData) => {
                 setSentimentAnalysis(incomingData);
+                props.handleNewSentiment(incomingData.emotion_prediction);
             }) 
             .catch((err) => console.error(err)) 
-        }
-    },[text.text]);
+    }
 
     return (
         <div className="col-xs-12 col-md-11 mx-auto">
@@ -44,7 +49,7 @@ const NewsSentiment = (text) => {
                             <Anger/>
                         </Col>
                         <Col className="col-xs-12 col-sm-12 col-xl-4">
-                            <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={text}/>
+                            <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={props.text}/>
                         </Col>
                     </Row>
                 :   sentimentAnalysis.emotion_prediction === "Fear"
@@ -53,7 +58,7 @@ const NewsSentiment = (text) => {
                                 <Fear/>
                             </Col>
                             <Col className="col-xs-12 col-sm-12 col-xl-4">
-                                <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={text}/>
+                                <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={props.text}/>
                             </Col>
                         </Row>
                     :   sentimentAnalysis.emotion_prediction === "Joy"
@@ -62,7 +67,7 @@ const NewsSentiment = (text) => {
                                     <Joy/>
                                 </Col>
                                 <Col className="col-xs-12 col-sm-12 col-xl-4">
-                                    <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={text}/>
+                                    <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={props.text}/>
                                 </Col>
                             </Row>
                         :   sentimentAnalysis.emotion_prediction === "Neutral"
@@ -71,7 +76,7 @@ const NewsSentiment = (text) => {
                                         <Neutral/>
                                     </Col>
                                     <Col className="col-xs-12 col-sm-12 col-xl-4">
-                                        <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={text}/>
+                                        <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={props.text}/>
                                     </Col>
                                 </Row>
                             :   sentimentAnalysis.emotion_prediction === "Sadness"
@@ -80,12 +85,12 @@ const NewsSentiment = (text) => {
                                             <Sadness/>
                                         </Col>
                                         <Col className="col-xs-12 col-sm-12 col-xl-4">
-                                            <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={text}/>
+                                            <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={props.text}/>
                                         </Col>
                                     </Row>
                                 :   sentimentAnalysis.emotion_prediction
                                     ?   <Col className="col-xs-12 col-sm-12 col-xl-4">
-                                            <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={text}/>
+                                            <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={props.ext}/>
                                         </Col>
                                     :   ""
             }
