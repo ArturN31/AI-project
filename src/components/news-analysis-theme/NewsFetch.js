@@ -4,15 +4,20 @@ import NewsDisplay from "./NewsDisplay"
 
 const NewsFetch = (params) => {
     const [newsUrls, setNewsUrls] = useState([]);
+    const [sentimentOccurrence, setSentimentOccurrence] = useState([]);
 
     let sentimentTotalArray = [] //array that stores all sentiment values
 
-    let handleTotalSentiment = sentiment => {
+    const handleTotalSentiment = sentiment => {
         //pushing values to an array
         //values are being passed from NewsSentiment.js to NewsDisplay.js, then to NewsFetch.js
         //NewsSentiment(children of NewsDisplay file) -> NewsDisplay(children of current file) -> NewsFetch(current file)
         sentimentTotalArray.push(sentiment);
-        console.log(sentimentTotalArray);
+        var occurrence = sentimentTotalArray.reduce((acc, value) => ({
+            ...acc,
+            [value]: (acc[value] || 0) + 1
+        }), {});
+        setSentimentOccurrence(occurrence);
     }
 
     useEffect(() => {
@@ -45,6 +50,28 @@ const NewsFetch = (params) => {
             <Row className="d-flex justify-content-center">
                 <Col className="col-6 m-4 text-white text-center">
                     <p>Total amount of available articles: {newsUrls.length}</p>
+                    <p>Emotion predictions</p>
+                    {console.log(sentimentOccurrence)}
+                    {sentimentOccurrence.Anger
+                        ?   "Anger: " + sentimentOccurrence.Anger + " "
+                        :   ""
+                    }
+                    {sentimentOccurrence.Fear
+                        ?   "Fear: " + sentimentOccurrence.Fear + " "
+                        :   ""
+                    }
+                    {sentimentOccurrence.Joy
+                        ?   "Joy: " + sentimentOccurrence.Joy + " "
+                        :   ""
+                    }
+                    {sentimentOccurrence.Neutral
+                        ?   "Neutral: " + sentimentOccurrence.Neutral + " "
+                        :   ""
+                    }
+                    {sentimentOccurrence.Sadness
+                        ?   "Sadness: " + sentimentOccurrence.Sadness + " "
+                        :   ""
+                    }
                 </Col>
             </Row>
             <Row>
