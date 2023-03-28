@@ -12,12 +12,20 @@ const NewsFetch = (params) => {
         //pushing values to an array
         //values are being passed from NewsSentiment.js to NewsDisplay.js, then to NewsFetch.js
         //NewsSentiment(children of NewsDisplay file) -> NewsDisplay(children of current file) -> NewsFetch(current file)
-        sentimentTotalArray.push(sentiment);
-        var occurrence = sentimentTotalArray.reduce((acc, value) => ({
+        if(sentiment === "N/A") {sentimentTotalArray.push("Not_Applicable")} 
+        else {sentimentTotalArray.push(sentiment)}
+        
+        if(sentimentTotalArray.length + 1 >= params.params.count) {handleOccurence(sentimentTotalArray)} //calls handleOccurence function when number of sentiments >= article count
+    }
+
+    const handleOccurence = (array) => {
+        //creates an array, which contains the emotions and their occurrences
+        var occurrence = array.reduce((acc, value) => ({
             ...acc,
             [value]: (acc[value] || 0) + 1
         }), {});
-        setSentimentOccurrence(occurrence);
+        console.log(occurrence);
+        setSentimentOccurrence(occurrence); //updates the state
     }
 
     useEffect(() => {
@@ -49,29 +57,39 @@ const NewsFetch = (params) => {
         <>
             <Row className="d-flex justify-content-center">
                 <Col className="col-6 m-4 text-white text-center">
-                    <p>Total amount of available articles: {newsUrls.length}</p>
-                    <p>Emotion predictions</p>
-                    {console.log(sentimentOccurrence)}
-                    {sentimentOccurrence.Anger
-                        ?   "Anger: " + sentimentOccurrence.Anger + " "
-                        :   ""
-                    }
-                    {sentimentOccurrence.Fear
-                        ?   "Fear: " + sentimentOccurrence.Fear + " "
-                        :   ""
-                    }
-                    {sentimentOccurrence.Joy
-                        ?   "Joy: " + sentimentOccurrence.Joy + " "
-                        :   ""
-                    }
-                    {sentimentOccurrence.Neutral
-                        ?   "Neutral: " + sentimentOccurrence.Neutral + " "
-                        :   ""
-                    }
-                    {sentimentOccurrence.Sadness
-                        ?   "Sadness: " + sentimentOccurrence.Sadness + " "
-                        :   ""
-                    }
+                    <span>Total amount of available articles: {newsUrls.length}</span><br></br>
+                    <div className="text-center text-bg-dark rounded p-1 m-4">
+                        {sentimentOccurrence
+                            ?   <span>Emotion occurrence:<br></br></span>
+                            :   ""
+                        }
+                        <span>
+                            {sentimentOccurrence.Anger
+                                ?   "Anger: " + sentimentOccurrence.Anger + " "
+                                :   ""
+                            }
+                            {sentimentOccurrence.Fear
+                                ?   "Fear: " + sentimentOccurrence.Fear + " "
+                                :   ""
+                            }
+                            {sentimentOccurrence.Joy
+                                ?   "Joy: " + sentimentOccurrence.Joy + " "
+                                :   ""
+                            }
+                            {sentimentOccurrence.Neutral
+                                ?   "Neutral: " + sentimentOccurrence.Neutral + " "
+                                :   ""
+                            }
+                            {sentimentOccurrence.Sadness
+                                ?   "Sadness: " + sentimentOccurrence.Sadness + " "
+                                :   ""
+                            }
+                            {sentimentOccurrence.Not_Applicable
+                                ?   "N/A: " + sentimentOccurrence.Not_Applicable + " "
+                                :   ""
+                            }
+                        </span>
+                    </div>
                 </Col>
             </Row>
             <Row>
