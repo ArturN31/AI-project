@@ -4,9 +4,18 @@ import NewsSentiment from "./NewsSentiment";
 
 const NewsDisplay = (news) => {
     const [newsExtracted, setNewsExtracted] = useState([]);
+    const [geoLocation, setGeoLocation] = useState("");
 
     useEffect(() => {
-        if (!news.length > 0) {
+        
+        for (let j = 0; j < news.news.keywords.length; j++) {
+            let currentKeyword = news.news.keywords[j];
+            if (currentKeyword.name === "glocations"){
+                setGeoLocation(currentKeyword.value);
+            }
+        }
+
+        if (news) {
             //extracts content from NY Times News
             const encodedParamsExtract = new URLSearchParams();
             encodedParamsExtract.append("language", "english");
@@ -43,6 +52,9 @@ const NewsDisplay = (news) => {
                         <Accordion.Item eventKey={news.news.headline.print_headline}>
                             <Accordion.Header>                        
                                 <span>
+                                                {
+                                                    geoLocation ?  <h5 style={{color:"gray"}}>{geoLocation}</h5> : ""
+                                                }
                                     {news.news.headline.print_headline && news.news.headline.main
                                         ?   <h5>{news.news.headline.print_headline}</h5>
                                         :   ""
@@ -67,6 +79,7 @@ const NewsDisplay = (news) => {
                                             :   ""
                                             }
                                             <Card.Body>
+                                                
                                                 <div style={{ textAlign: 'justify' }}>
 
                                                     {/* News summary output */}
