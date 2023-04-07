@@ -19,7 +19,7 @@ const NewsDisplay = (props) => {
         sentiment: ""
     };
 
-    let handleNewSentiment = sentiment => {
+    async function handleNewSentiment (sentiment){
         //getting article title
         if(props.news.headline.print_headline && props.news.headline.main) {articleTitlesForMarker = props.news.headline.print_headline}
         else if (!props.news.headline.print_headline && props.news.headline.main) {articleTitlesForMarker = props.news.headline.main}
@@ -44,7 +44,7 @@ const NewsDisplay = (props) => {
             sentiment: sentiment
         } //combining all data
 
-        props.setNewSentiment(passedArticleWithSentiment); //passing entire article with sentiment to Parent component - NewsFetch.js
+        return await props.setNewSentiment(passedArticleWithSentiment); //passing entire article with sentiment to Parent component - NewsFetch.js
     }
 
     useEffect(() => {

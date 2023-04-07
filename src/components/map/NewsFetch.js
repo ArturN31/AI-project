@@ -7,13 +7,10 @@ import MapPopup from "./MapPopup";
 
 const NewsFetch = (props) => {
     const [news, setNews] = useState([]);
-    const [sentimentTotal, setSentimentTotal] = useState([]);
+    const [article, setArticle] = useState([]);
 
-    let arrayOfArticlesWithSentiment = [];
-
-    const handleNewSentiment = sentiment => {
-        arrayOfArticlesWithSentiment.push(sentiment);
-        setSentimentTotal(arrayOfArticlesWithSentiment);
+    const handleNewSentiment = retrievedArticle => {
+        setArticle(retrievedArticle);
     }
 
     useEffect(() => {
@@ -70,7 +67,7 @@ const NewsFetch = (props) => {
                 </Col>
             </Row>
             {news.slice(0, props.count).length > 0 
-                ?   <MapPopup desiredCount={news.slice(0, props.count).length} sentimentArray={sentimentTotal}/> 
+                ?   <MapPopup desiredCount={news.slice(0, props.count).length} article={article}/> 
                 :   ""
             }
         </>
