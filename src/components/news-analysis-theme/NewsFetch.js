@@ -24,7 +24,6 @@ const NewsFetch = (params) => {
             ...acc,
             [value]: (acc[value] || 0) + 1
         }), {});
-        console.log(occurrence);
         setSentimentOccurrence(occurrence); //updates the state
     }
 

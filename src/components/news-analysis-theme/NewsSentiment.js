@@ -16,6 +16,7 @@ const NewsSentiment = (props) => {
         if(props.text !== "") {
             fetchData(); 
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     async function fetchData() {
@@ -49,7 +50,7 @@ const NewsSentiment = (props) => {
                         <Col className="col-xs-12 col-sm-12 col-xl-8">
                             <Anger/>
                         </Col>
-                        <Col className="col-xs-12 col-sm-12 col-xl-4">
+                        <Col className="col-xs-12 col-sm-12 col-xl-4 mx-auto">
                             <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={props.text}/>
                         </Col>
                     </Row>
@@ -58,7 +59,7 @@ const NewsSentiment = (props) => {
                             <Col className="col-xs-12 col-sm-12 col-xl-8">
                                 <Fear/>
                             </Col>
-                            <Col className="col-xs-12 col-sm-12 col-xl-4">
+                            <Col className="col-xs-12 col-sm-12 col-xl-4 mx-auto">
                                 <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={props.text}/>
                             </Col>
                         </Row>
@@ -67,7 +68,7 @@ const NewsSentiment = (props) => {
                                 <Col className="col-xs-12 col-sm-12 col-xl-8">
                                     <Joy/>
                                 </Col>
-                                <Col className="col-xs-12 col-sm-12 col-xl-4">
+                                <Col className="col-xs-12 col-sm-12 col-xl-4 mx-auto">
                                     <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={props.text}/>
                                 </Col>
                             </Row>
@@ -76,7 +77,7 @@ const NewsSentiment = (props) => {
                                     <Col className="col-xs-12 col-sm-12 col-xl-8 d-flex align-items-center">
                                         <Neutral/>
                                     </Col>
-                                    <Col className="col-xs-12 col-sm-12 col-xl-4">
+                                    <Col className="col-xs-12 col-sm-12 col-xl-4 mx-auto">
                                         <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={props.text}/>
                                     </Col>
                                 </Row>
@@ -85,12 +86,12 @@ const NewsSentiment = (props) => {
                                         <Col className="col-xs-12 col-sm-12 col-xl-8">
                                             <Sadness/>
                                         </Col>
-                                        <Col className="col-xs-12 col-sm-12 col-xl-4">
+                                        <Col className="col-xs-12 col-sm-12 col-xl-4 mx-auto">
                                             <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={props.text}/>
                                         </Col>
                                     </Row>
                                 :   sentimentAnalysis.emotion_prediction
-                                    ?   <Col className="col-xs-12 col-sm-12 col-xl-4">
+                                    ?   <Col className="col-xs-12 col-sm-12 col-xl-4 mx-auto">
                                             <SentimentOutput sentimentAnalysis={sentimentAnalysis} text={props.ext}/>
                                         </Col>
                                     :   ""
