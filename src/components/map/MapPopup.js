@@ -17,18 +17,13 @@ const MapPopup = (props) => {
     
     useEffect(() => {
         if(props.article) {
-            if (firstUpdateArticle.current) {
-                firstUpdateArticle.current = false;
-            } else {
-                setArticleData((prevState) => [...prevState, props.article]);
-            }
+            if (firstUpdateArticle.current) { firstUpdateArticle.current = false; } 
+            else { setArticleData((prevState) => [...prevState, props.article]); }
         }
     }, [props.article]) //triggered on props.sentimentArray update - when articles with sentiment values are passed
 
     useEffect(() => {
-        if (articleData.length > 0) {
-            setGeolocations(articleData.map(({location}) => (location)));
-        }
+        if (articleData.length > 0) { setGeolocations(articleData.map(({location}) => (location))); }
     }, [articleData]) //triggered when articleData is set
 
     useEffect(() => {
@@ -45,7 +40,7 @@ const MapPopup = (props) => {
                     if (incomingData.features[0]) {
                         let lat = incomingData.features[0].center[0];
                         let long = incomingData.features[0].center[1];
-                        let position = [lat, long]
+                        let position = [long, lat]
 
                         setCoordinates(position);
                     }
@@ -59,9 +54,16 @@ const MapPopup = (props) => {
         if (firstUpdateCoords.current) {
             firstUpdateCoords.current = false;
         } else {
-            setCoordinatesArray((prevState) => [...prevState, coordinates]);
+            setCoordinatesArray((prevState) => {
+                const duplicatedValue = prevState.some((coordinate) => JSON.stringify(coordinate) === JSON.stringify(coordinates)); //if equal then duplicateValue = true
+
+                console.log("duplicatedValue =", duplicatedValue);
+
+                if (!duplicatedValue) { return [...prevState, coordinates]; } // if not duplicate
+                else { return prevState; } //if duplicate
+            });
         }
-    }, [coordinates])
+    }, [coordinates]);
 
     useEffect(() => {
         console.log(coordinatesArray);
@@ -78,7 +80,7 @@ const MapPopup = (props) => {
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
                         {coordinatesArray.length > 0 && articleData.length > 0
-                            ?   coordinatesArray.slice(articleData.length).map((coords, index) => (
+                            ?   coordinatesArray.map((coords, index) => (
                                 articleData[index]
                                 ?   <Marker key={articleData[index].title} position={coords} icon={new Icon({ iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41] })}>
                                         <Popup> 

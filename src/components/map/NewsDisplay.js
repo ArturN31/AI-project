@@ -21,12 +21,21 @@ const NewsDisplay = (props) => {
 
     async function handleNewSentiment (sentiment){
         //getting article title
-        if(props.news.headline.print_headline && props.news.headline.main) {articleTitlesForMarker = props.news.headline.print_headline}
-        else if (!props.news.headline.print_headline && props.news.headline.main) {articleTitlesForMarker = props.news.headline.main}
+        if(props.news.headline.print_headline 
+        && props.news.headline.main) {
+            articleTitlesForMarker = props.news.headline.print_headline
+        }
+        else if (!props.news.headline.print_headline 
+                && props.news.headline.main) {
+                    articleTitlesForMarker = props.news.headline.main
+                }
 
         if(props.news.snippet) {articleSnippetsForMarker = props.news.snippet} //getting article snippet
 
-        if(props.news.multimedia[0] && props.news.multimedia[0] !== undefined) {articleImagesForMarker = props.news.multimedia[0].url} //getting article image
+        if(props.news.multimedia[0] 
+        && props.news.multimedia[0] !== undefined) {
+            articleImagesForMarker = props.news.multimedia[0].url
+        } //getting article image
 
         for (let i = 0; i < props.news.keywords.length; i++) {
             currentKeyword = props.news.keywords[i];

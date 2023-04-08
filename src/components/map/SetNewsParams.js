@@ -59,7 +59,7 @@ function SetNewsParams() {
               onChange={onChange} 
               value={date} 
               maxDetail={"year"} 
-              minDate={new Date("01-01-1852")}
+              minDate={new Date("01-01-2000")}
               maxDate={new Date()}
               className='mx-auto'/>
                 <p className="mt-3">Chosen date: {date.toDateString().split(' ')[1]} {date.toDateString().split(' ')[3]}</p>
