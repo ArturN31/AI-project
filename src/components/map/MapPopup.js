@@ -67,7 +67,7 @@ const MapPopup = (props) => {
     return (
         <div>
             <Row className="d-flex justify-content-center">
-                <Col className="col-12 m-6">
+                <Col className="col-12 col-xl-8 col-xxl-6 m-5 bg-dark p-2 rounded-2">
                     <MapContainer style={{ width: "100%", height: "60vh" }} center={position} zoom={2}>
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -80,7 +80,7 @@ const MapPopup = (props) => {
                                         <Popup> 
                                             <Row>
                                                 <Col className="col-12">
-                                                    <h5 className="text-center">{articleData[index].title}</h5>
+                                                    <h5 className="tooltip-text">{articleData[index].title}</h5>
                                                 </Col>
                                                 <Col className="col-12 d-flex justify-content-center">
                                                     <img 
@@ -90,12 +90,41 @@ const MapPopup = (props) => {
                                                         alt={articleData[index].title}
                                                     />
                                                 </Col>
+                                            </Row>
+                                            <Row>
                                                 <Col className="col-12">
-                                                    <p className="text-center">{articleData[index].snippet}</p>
+                                                    <hr></hr>
+                                                    <p className="tooltip-text">{articleData[index].snippet}</p>
+                                                    <hr></hr>
                                                 </Col>
-                                                <Col>
-                                                    <p className="text-center">{articleData[index].sentiment}</p>
-                                                </Col>
+                                                {articleData[index].sentiment === "Anger"
+                                                    ?   <Col className="col-11 mx-auto rounded-2 map-tooltip anger-map-tooltip">
+                                                            <p className="tooltip-text"><strong>{articleData[index].sentiment}</strong></p>
+                                                        </Col>
+                                                    :   articleData[index].sentiment === "Fear"
+                                                        ?   <Col className="col-11 mx-auto rounded-2 map-tooltip fear-map-tooltip">
+                                                                <p className="tooltip-text"><strong>{articleData[index].sentiment}</strong></p>
+                                                            </Col>
+                                                        :   articleData[index].sentiment === "Joy"
+                                                            ?   <Col className="col-11 mx-auto rounded-2 map-tooltip joy-map-tooltip">
+                                                                    <p className="tooltip-text"><strong>{articleData[index].sentiment}</strong></p>
+                                                                </Col>
+                                                            :   articleData[index].sentiment === "Neutral"
+                                                                ?   <Col className="col-11 mx-auto rounded-2 map-tooltip neutral-map-tooltip">
+                                                                        <p className="tooltip-text"><strong>{articleData[index].sentiment}</strong></p>
+                                                                    </Col>
+                                                                :   articleData[index].sentiment === "Sadness"
+                                                                    ?   <Col className="col-11 mx-auto rounded-2 map-tooltip sadness-map-tooltip">
+                                                                            <p className="tooltip-text"><strong>{articleData[index].sentiment}</strong></p>
+                                                                        </Col>
+                                                                    :   articleData[index].sentiment === "N/A"
+                                                                        ?   <Col className="col-11 mx-auto rounded-2">
+                                                                                <p className="tooltip-text"><strong>{articleData[index].sentiment}</strong></p>
+                                                                            </Col>
+                                                                        :   <Col className="col-11 mx-auto rounded-2">
+                                                                                <p className="tooltip-text"><strong>{articleData[index].sentiment}</strong></p>
+                                                                            </Col>
+                                                }
                                             </Row>
                                         </Popup>
                                     </Marker> 

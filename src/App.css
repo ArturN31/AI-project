@@ -110,6 +110,7 @@ p {
 .sadness {
   background: linear-gradient(180deg, #103783 26.32%, #9BAFD9 100%);
 }
+
 /* EOF EMOTION COMPONENTS */
 
 /* ACCORDION */
@@ -128,4 +129,37 @@ p {
   width: 100px;
 }
 
+.leaflet-popup, .leaflet-popup-content {
+  min-width: 340px;
+}
+
+.tooltip-text {
+  text-align: justify;
+  text-align-last: center;
+}
+
+.map-tooltip {
+  color: #ffff;
+  letter-spacing: 2px;
+}
+
+.anger-map-tooltip {
+  background: linear-gradient(180deg, #D3321D 26.32%, #FFCF67 100%);
+}
+
+.fear-map-tooltip {
+  background: linear-gradient(180deg, #3D05DD 26.32%, #FCB0F3 100%);
+}
+
+.joy-map-tooltip {
+  background: linear-gradient(180deg, #FF930F 26.32%, #FFF95B 100%);
+}
+
+.neutral-map-tooltip {
+  background: linear-gradient(180deg, #32C4C0 26.32%, #8DE9D5 100%);
+}
+
+.sadness-map-tooltip {
+  background: linear-gradient(180deg, #103783 26.32%, #9BAFD9 100%);
+}
 /* EOF REACT MAP */

@@ -67,7 +67,7 @@ const NewsFetch = (props) => {
                 </Col>
             </Row>
             {news.slice(0, props.count).length > 0 
-                ?   <MapPopup desiredCount={news.slice(0, props.count).length} article={article}/> 
+                ?   <MapPopup article={article}/> 
                 :   ""
             }
         </>
