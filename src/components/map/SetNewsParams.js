@@ -73,7 +73,7 @@ function SetNewsParams() {
                 type="number"
                 onChange={handleCountChange}
                 min='0'
-                max='20'
+                max='10'
                 className="w-50 mx-auto"
               />
             </Form.Group>

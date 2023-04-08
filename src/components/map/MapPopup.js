@@ -57,18 +57,12 @@ const MapPopup = (props) => {
             setCoordinatesArray((prevState) => {
                 const duplicatedValue = prevState.some((coordinate) => JSON.stringify(coordinate) === JSON.stringify(coordinates)); //if equal then duplicateValue = true
 
-                console.log("duplicatedValue =", duplicatedValue);
-
                 if (!duplicatedValue) { return [...prevState, coordinates]; } // if not duplicate
                 else { return prevState; } //if duplicate
             });
         }
     }, [coordinates]);
 
-    useEffect(() => {
-        console.log(coordinatesArray);
-        console.log(articleData);
-    }, [coordinatesArray])
 
     return (
         <div>
