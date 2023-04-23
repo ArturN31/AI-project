@@ -95,7 +95,7 @@ const NewsDisplay = (news) => {
                                                 <div style={{ textAlign: 'justify' }}>
 
                                                     {/* News summary output */}
-                                                    {newsExtracted
+                                                    {newsExtracted && newsExtracted.description
                                                     ?   <>
                                                             <h6 className="text-center">Summary:</h6>
                                                             {newsExtracted.description}
@@ -107,9 +107,9 @@ const NewsDisplay = (news) => {
                                             </Card.Body>
 
                                             {/* Sentiment analysis output */}
-                                            {newsExtracted >= 0
-                                            ?   ""
-                                            :   <NewsSentiment text={newsExtracted.description}/>
+                                            {newsExtracted && newsExtracted.description
+                                            ?   <NewsSentiment text={newsExtracted.description}/>
+                                            :   ""
                                             }
                                         </ListGroup>
                                     </Card.Body>

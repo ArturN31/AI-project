@@ -13,7 +13,7 @@ const NewsSentiment = (props) => {
 
     useEffect(() => {
         //cheching if text is not ""
-        if(props.text !== "") {
+        if(props.text !== "" && props.text !== undefined) {
             fetchData(); 
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps

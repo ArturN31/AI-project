@@ -158,7 +158,7 @@ const NewsDisplay = (props) => {
                                                 <div style={{ textAlign: 'justify' }}>
 
                                                     {/* News summary output */}
-                                                    {newsExtracted
+                                                    {newsExtracted && newsExtracted.description
                                                     ?   <>
                                                             <h6 className="text-center">Summary:</h6>
                                                             {newsExtracted.description}
@@ -169,12 +169,11 @@ const NewsDisplay = (props) => {
                                             </Card.Body>
 
                                             {/* Sentiment analysis output */}
-                                            {newsExtracted >= 0
-                                            ?   ""
-
-                                            :   <Card.Footer className="text-center">
+                                            {newsExtracted && newsExtracted.description
+                                            ?   <Card.Footer className="text-center">
                                                     <NewsSentiment setNewSentiment={handleNewSentiment} text={newsExtracted.description}/>
                                                 </Card.Footer>
+                                            :   ""
                                             }
                                         </ListGroup>
                                     </Card.Body>

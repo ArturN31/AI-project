@@ -39,10 +39,6 @@ const NewsDisplay = (props) => {
         if (!props.length > 0) {
             const optionsExtract = {
                 method: 'GET',
-                url: props.url.url,
-                params: {
-                    url: 'https://www.nytimes.com/article/sudan-khartoum-military.html'
-                },
                 headers: {
                     'content-type': 'application/octet-stream',
                     'X-RapidAPI-Key': process.env.REACT_APP_ARTICLE_EXTRACTION_API_KEY,
@@ -90,7 +86,7 @@ const NewsDisplay = (props) => {
                                         <Card.Body>
                                             <div style={{ textAlign: 'justify' }}>
                                                 {/* News summary output */}
-                                                {newsExtracted
+                                                {newsExtracted && newsExtracted.description
                                                 ?   <>
                                                         <h6 className="text-center">Summary:</h6>
                                                         {newsExtracted.description}
@@ -100,9 +96,8 @@ const NewsDisplay = (props) => {
                                             </div>
                                             <hr></hr>
                                         </Card.Body>
-
                                         {/* Sentiment analysis output */}
-                                        {newsExtracted
+                                        {newsExtracted && newsExtracted.description
                                         ?   <NewsSentiment handleNewSentiment={handleNewSentiment} text={newsExtracted.description}/>
                                         :   ""
                                         }
