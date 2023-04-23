@@ -10,29 +10,53 @@ const NewsDisplay = (props) => {
     }
 
     useEffect(() => {
-        if (!props.length > 0) {
-            //extracts content from NY Times News
-            const encodedParamsExtract = new URLSearchParams();
-            encodedParamsExtract.append("language", "english");
-            encodedParamsExtract.append("url", props.url.url);
+        // if (!props.length > 0) {
+        //     //extracts content from NY Times News
+        //     const encodedParamsExtract = new URLSearchParams();
+        //     encodedParamsExtract.append("language", "english");
+        //     encodedParamsExtract.append("url", props.url.url);
 
+        //     const optionsExtract = {
+        //         method: 'POST',
+        //         headers: {
+        //             'content-type': 'application/x-www-form-urlencoded',
+        //             'X-RapidAPI-Key': process.env.REACT_APP_TEXT_ANALYSIS_API_KEY,
+        //             'X-RapidAPI-Host': 'text-analysis12.p.rapidapi.com'
+        //         },
+        //         body: encodedParamsExtract 
+        //     };
+
+        //     fetch('https://text-analysis12.p.rapidapi.com/article-extraction/api/v1.3', optionsExtract)
+        //     .then(async (response) => {
+        //         if (!response.ok) {throw response} 
+        //         return await response.json();
+        //     })
+        //     .then((incomingData) => {
+        //         setNewsExtracted(incomingData.article);
+        //     })
+        //     .catch((err) => console.error(err));
+        // }
+        if (!props.length > 0) {
             const optionsExtract = {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/x-www-form-urlencoded',
-                    'X-RapidAPI-Key': process.env.REACT_APP_TEXT_ANALYSIS_API_KEY,
-                    'X-RapidAPI-Host': 'text-analysis12.p.rapidapi.com'
+                method: 'GET',
+                url: props.url.url,
+                params: {
+                    url: 'https://www.nytimes.com/article/sudan-khartoum-military.html'
                 },
-                body: encodedParamsExtract 
+                headers: {
+                    'content-type': 'application/octet-stream',
+                    'X-RapidAPI-Key': process.env.REACT_APP_ARTICLE_EXTRACTION_API_KEY,
+                    'X-RapidAPI-Host': 'article-extractor-and-summarizer.p.rapidapi.com'
+                }
             };
 
-            fetch('https://text-analysis12.p.rapidapi.com/article-extraction/api/v1.3', optionsExtract)
+            fetch('https://article-extractor-and-summarizer.p.rapidapi.com/extract?url=' + props.url.url, optionsExtract)
             .then(async (response) => {
                 if (!response.ok) {throw response} 
                 return await response.json();
             })
             .then((incomingData) => {
-                setNewsExtracted(incomingData.article);
+                setNewsExtracted(incomingData);
             })
             .catch((err) => console.error(err));
         }
@@ -66,10 +90,10 @@ const NewsDisplay = (props) => {
                                         <Card.Body>
                                             <div style={{ textAlign: 'justify' }}>
                                                 {/* News summary output */}
-                                                {newsExtracted.summary
+                                                {newsExtracted
                                                 ?   <>
                                                         <h6 className="text-center">Summary:</h6>
-                                                        {newsExtracted.summary}
+                                                        {newsExtracted.description}
                                                     </>
 
                                                 :   <p className="text-center">Loading Content ...</p>}
@@ -78,9 +102,9 @@ const NewsDisplay = (props) => {
                                         </Card.Body>
 
                                         {/* Sentiment analysis output */}
-                                        {newsExtracted >= 0
-                                        ?   ""
-                                        :   <NewsSentiment handleNewSentiment={handleNewSentiment} text={newsExtracted.text.replace(/(\r\n|\n|\r)/gm, " ")}/>
+                                        {newsExtracted
+                                        ?   <NewsSentiment handleNewSentiment={handleNewSentiment} text={newsExtracted.description}/>
+                                        :   ""
                                         }
                                     </ListGroup>
                                 </Card.Body>
