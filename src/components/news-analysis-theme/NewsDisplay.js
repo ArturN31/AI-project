@@ -37,16 +37,7 @@ const NewsDisplay = (props) => {
         //     .catch((err) => console.error(err));
         // }
         if (!props.length > 0) {
-            const optionsExtract = {
-                method: 'GET',
-                headers: {
-                    'content-type': 'application/octet-stream',
-                    'X-RapidAPI-Key': process.env.REACT_APP_ARTICLE_EXTRACTION_API_KEY,
-                    'X-RapidAPI-Host': 'article-extractor-and-summarizer.p.rapidapi.com'
-                }
-            };
-
-            fetch('https://article-extractor-and-summarizer.p.rapidapi.com/extract?url=' + props.url.url, optionsExtract)
+            fetch('https://extractorapi.com/api/v1/extractor?apikey=' + process.env.REACT_APP_EXTRACTOR_API_KEY + '&url=' + props.url.url)
             .then(async (response) => {
                 if (!response.ok) {throw response} 
                 return await response.json();
@@ -86,10 +77,10 @@ const NewsDisplay = (props) => {
                                         <Card.Body>
                                             <div style={{ textAlign: 'justify' }}>
                                                 {/* News summary output */}
-                                                {newsExtracted && newsExtracted.description
+                                                {newsExtracted && newsExtracted.text
                                                 ?   <>
                                                         <h6 className="text-center">Summary:</h6>
-                                                        {newsExtracted.description}
+                                                        {newsExtracted.text}
                                                     </>
 
                                                 :   <p className="text-center">Loading Content ...</p>}
@@ -97,8 +88,8 @@ const NewsDisplay = (props) => {
                                             <hr></hr>
                                         </Card.Body>
                                         {/* Sentiment analysis output */}
-                                        {newsExtracted && newsExtracted.description
-                                        ?   <NewsSentiment handleNewSentiment={handleNewSentiment} text={newsExtracted.description}/>
+                                        {newsExtracted && newsExtracted.text
+                                        ?   <NewsSentiment handleNewSentiment={handleNewSentiment} text={newsExtracted.text.replace(/[^\w\s]/gi, '')}/>
                                         :   ""
                                         }
                                     </ListGroup>
